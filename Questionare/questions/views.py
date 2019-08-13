@@ -4,3 +4,6 @@ from django.shortcuts import render
 
 def index(request):
     return render(request,'questions/index.html')
+
+def trap(request,path):
+    return render(request,'house_trapped/'+path)

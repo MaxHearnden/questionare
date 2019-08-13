@@ -1,3 +1,5 @@
+<!DOCTYPE html>
+<html>
 <head>
 
 <style>
@@ -11,20 +13,68 @@ body, p, li, input {font-size:18px}
 
 
 
-<h3 style="font-size:40px;">Please check the box of your age.</h3>
+<p style="font-size:40px;">Please check the correct box.</p>
 <form>
+  <div id="question-1">
   
   <ul>
-  <li><input type="radio" name="Age" value="5-10">5-10</li>
+  
   <li><input type="radio" name="Age" value="11-18">11-18</li>
   <li><input type="radio" name="Age" value="19-29" checked> 19-29</li>
   <li><input type="radio" name="Age" value="30-46"> 30-46</li>
   <li><input type="radio" name="Age" value="47-65" checked>47-65</li>
   <li><input type="radio" name="Age" value="65+">65+</li>
   </ul>
+  <a href="#">next</a>
+  </div>
+  
+  <div id="question-2">
   <p>Please Select your Gender.</p>
   <ul>
   <li><input type="radio" name="gender" value="male" checked> Male</li>
   <li><input type="radio" name="gender" value="female"> Female</li>
   </ul>
+  <a href="#">next</a>
+  </div>
+  
+  <div id="question-3">
+  <ul>
+  <p>How Enjoyable was your visit today</p>
+  <li><input type="radio" name="Question" value="">Very Enjoyable</li>
+  <li><input type="radio" name="Question" value="Enjoyable" checked> 19-29</li>
+  <li><input type="radio" name="Question" value="Acceptable"> 30-46</li>
+  <li><input type="radio" name="Question" value="Not Enjoyable" checked>47-65</li>
+  </ul>
+  </div>
+  
+  <ul>
+  <p>Is this the first time you've visited</p>
+  <li><input type="radio" name="Question" value="male" checked> Yes</li>
+  <li><input type="radio" name="Question" value="female">No</li>
+
+  </ul>
+
+
+
+<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+<script>
+$("#question-2").hide()
+$("#question-3").hide()
+$("#question-1 a").on("click", function(e) {
+  e.preventDefault()
+  $("#question-1").hide()
+  $("#question-2").show()
+})
+$("#question-2 a").on("click", function(e) {
+  e.preventDefault()
+  $("#question-2").hide()
+  $("#question-3").show()
+})
+$("#question-3 a").on("click", function(e) {
+  e.preventDefault()
+  $("#question-3").hide()
+  $("#question-1").show()
+})
+</script>
 </body>
+</html>

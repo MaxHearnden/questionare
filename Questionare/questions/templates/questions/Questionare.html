@@ -12,8 +12,8 @@ body, p, li, input {font-size:18px}
 
 <p style="font-size:40px;">Please check the correct box.</p>
 <form>
-{% for question in questions %}
-    <div id="question-{{question.id}}">
+{% for question in questions|dictsort:"id" %}
+    <div id="question-{{forloop.counter}}">
     <p>{{question.title}}</p>
     <ul>
     {%for choice in question.choice_set.all %}
@@ -27,15 +27,15 @@ body, p, li, input {font-size:18px}
 <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
 <script>
 {% for question in questions %}
-{% if question.id != 1 %}
-$("#question-{{question.id}}").hide()
+{% if forloop.counter != 1 %}
+$("#question-{{forloop.counter}}").hide()
 {% endif %}
 {% endfor %}
 {% for question in questions %}
-$("#question-{{question.id}} a").on("click", function(e){
+$("#question-{{forloop.counter}} a").on("click", function(e){
     e.preventDefault()
-    $("#question-{{question.id}}").hide()
-    $("#question-{{question.id|add:1}}").show()
+    $("#question-{{forloop.counter}}").hide()
+    $("#question-{{forloop.counter|add:1}}").show()
 })
 {% endfor %}
 </script>

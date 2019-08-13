@@ -1,0 +1,42 @@
+<head>
+<style>
+p {color: MediumSeaGreen;}
+body, p, li, input {font-size:18px}
+</style>
+</head>
+<body style="background-color:lightgray;">
+<h1 style="font-size:60px;">The National Museum Of Computing</h1>
+<p style="font-size:40px;">Please Answer The Following Questions Bellow:</p>
+
+
+
+<p style="font-size:40px;">Please check the correct box.</p>
+<form>
+{% for question in questions %}
+    <div id="question-{{question.id}}">
+    <p>{{question.title}}</p>
+    <ul>
+    {%for choice in question.choice_set.all %}
+    <li><input type="radio" name={{question.name}} value="{{choice.name}}">{{choice.name}}</li>
+    {% endfor %}
+    </ul>
+    <a href="#">next</a>
+    </div>
+{% endfor %}
+</form>
+<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+<script>
+{% for question in questions %}
+{% if question.id != 1 %}
+$("#question-{{question.id}}").hide()
+{% endif %}
+{% endfor %}
+{% for question in questions %}
+$("#question-{{question.id}} a").on("click", function(e){
+    e.preventDefault()
+    $("#question-{{question.id}}").hide()
+    $("#question-{{question.id|add:1}}").show()
+})
+{% endfor %}
+</script>
+</body>

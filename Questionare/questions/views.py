@@ -1,9 +1,7 @@
 from django.shortcuts import render
-
+from .models import Question,Choice
 # Create your views here.
 
 def index(request):
-    return render(request,'questions/index.html')
-
-def trap(request,path):
-    return render(request,'house_trapped/'+path)
+    questions=Question.objects.order_by('-id')
+    return render(request,'questions/Questionare.html',{"questions":questions})

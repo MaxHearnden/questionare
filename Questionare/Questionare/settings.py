@@ -31,6 +31,7 @@ ALLOWED_HOSTS = ['172.21.121.222','localhost']
 # Application definition
 
 INSTALLED_APPS = [
+    'login_site.apps.LoginSiteConfig',
     'questions.apps.QuestionsConfig',
     'django.contrib.admin',
     'django.contrib.auth',

@@ -11,6 +11,7 @@ class QuestionAdmin(admin.ModelAdmin):
     fieldsets = [
         (None,               {'fields': ['title']}),
         (None, {'fields': ['name']}),
+        (None, {'fields': ['type']})
     ]
     inlines = [ChoiceInline]
 

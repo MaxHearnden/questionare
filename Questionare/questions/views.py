@@ -1,5 +1,8 @@
+import csv
+from django.http import HttpResponse
 from django.shortcuts import render
 from .models import Question,Choice,Response,Answer
+from django.contrib.auth.decorators import login_required
 # Create your views here.
 from django.utils import timezone
 def index(request):
@@ -14,3 +17,19 @@ def submit(request):
         answer=response.answer_set.create(answer=request.POST[i.name],question=i)
         answer.save()
     return render(request,'questions/feedback.html')
+
+@login_required
+def data(request):
+    data=[[]]
+    for i in Response.objects.all():
+        response=['']*len(data[0])
+        for j in i.answer_set.all():
+            if j.question.name not in data[0]:
+                data[0].append(j.question.name)
+                response.append([''])
+            response[data[0].index(j.question.name)]=j.answer
+        data.append(response)
+    httpresponse=HttpResponse(content_type='text/csv')
+    writer=csv.writer(httpresponse)
+    writer.writerows(data)
+    return httpresponse

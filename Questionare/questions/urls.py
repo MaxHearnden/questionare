@@ -4,5 +4,6 @@ from . import views
 
 urlpatterns = [
     path('',views.index,name='index'),
-    path('submit',views.submit)
+    path('submit',views.submit),
+    path('data.csv',views.data)
 ]

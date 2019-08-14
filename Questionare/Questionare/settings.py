@@ -31,6 +31,7 @@ ALLOWED_HOSTS = ['172.21.121.222','localhost']
 # Application definition
 
 INSTALLED_APPS = [
+    'login_site.apps.LoginSiteConfig',
     'questions.apps.QuestionsConfig',
     'django.contrib.admin',
     'django.contrib.auth',
@@ -114,7 +115,7 @@ USE_L10N = True
 
 USE_TZ = True
 
-
+LOGIN_URL="/admin/login"
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/2.2/howto/static-files/
 

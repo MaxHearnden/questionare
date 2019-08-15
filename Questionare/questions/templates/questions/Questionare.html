@@ -18,51 +18,56 @@ background-color:MediumSeaGreen;
 </head>
 
 <body>
-<div class="row h-100">
-<div class="col-1 bg-green">
-</div>
-<div class="col-11">
-  <div class="container">
-<h1 style="font-size:60px;">The National Museum Of Computing</h1>
-<p class="green" style="font-size:40px;">Please Answer The Following Questions Below:</p>
+  <div class="container-fluid">
+    <div class="row h-100">
+      <div class="col-1 bg-green">
+      </div>
 
-<form action="submit" method = "post" >
-{% csrf_token %}
+      <div class="col-9">
+        <div class="container">
 
-{% for question in questions|dictsort:"id" %}
-    <div id="question-{{forloop.counter}}">
-    <h3>{{question.title}}</h3>
-    <p>
-      {%for choice in question.choice_set.all %}
-        {% if question.type == "radio" %}
-          <input type="checkbox" class="chb" name={{question.name}} value="{{choice.name}}">{{choice.name}}<br/>
-        {% elif question.type == "text" %}
-          <textarea class="form-control" name={{question.name}} placeholder="{{choice.name}}"></textarea>
-        {% endif %}
-      {% endfor %}
-    </p>
-    <a class="btn btn-secondary bg-green" href="#">Next</a>
+          <h1 style="font-size:60px;">The National Museum Of Computing</h1>
+          <p class="green" style="font-size:40px;">Please Answer The Following Questions Below:</p>
+
+          <form action="submit" method = "post" >
+            {% csrf_token %}
+
+            {% for question in questions|dictsort:"id" %}
+            <div id="question-{{forloop.counter}}">
+              <h3>{{question.title}}</h3>
+              <p>
+                {%for choice in question.choice_set.all %}
+                {% if question.type == "radio" %}
+                <input type="checkbox" class="chb" name={{question.name}} value="{{choice.name}}">{{choice.name}}<br/>
+                {% elif question.type == "text" %}
+                <textarea class="form-control" name={{question.name}} placeholder="{{choice.name}}"></textarea>
+                {% endif %}
+                {% endfor %}
+              </p>
+              <a class="btn btn-secondary bg-green" href="#">Next</a>
+            </div>
+            {% endfor %}
+            <div id="question-{{questions|length|add:1}}">
+              <input class="btn btn-secondary bg-green" type="submit" value="Submit">
+            </div>
+
+          </form>
+          <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+          <script>
+            {% for question in questions %}
+            $("#question-{{forloop.counter|add:1}}").hide()
+            {% endfor %}
+            {% for question in questions %}
+            $("#question-{{forloop.counter}} a").on("click", function(e){
+              e.preventDefault()
+              $("#question-{{forloop.counter}}").hide()
+              $("#question-{{forloop.counter|add:1}}").show()
+            })
+            {% endfor %}
+          </script>
+        </div>
+      </div>
+      <div class="col-2" id="logo"></div>
     </div>
-{% endfor %}
-<div id="question-{{questions|length|add:1}}">
-  <input class="btn btn-secondary bg-green" type="submit" value="Submit">
-</div>
-
-</form>
-<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
-<script>
-{% for question in questions %}
-$("#question-{{forloop.counter|add:1}}").hide()
-{% endfor %}
-{% for question in questions %}
-$("#question-{{forloop.counter}} a").on("click", function(e){
-    e.preventDefault()
-    $("#question-{{forloop.counter}}").hide()
-    $("#question-{{forloop.counter|add:1}}").show()
-})
-{% endfor %}
-</script>
-</div>
-</div>
-</div>
+  </div>
 </body>

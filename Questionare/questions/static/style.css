@@ -5,3 +5,9 @@
 input[type=checkbox] {
   margin-right: 0.5em;
 }
+
+#logo {
+  background-image: url("/static/logo.png");
+  background-size: contain;
+  background-repeat: no-repeat;
+}

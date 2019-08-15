@@ -3,13 +3,12 @@
 p {color: MediumSeaGreen;}
 body, p, li, input {font-size:18px}
 </style>
+<link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro&display=swap" rel="stylesheet">
+<link rel = "stylesheet" type = "text/css"href = "/static/style.css" />
 </head>
 <body style="background-color:lightgray;">
 <h1 style="font-size:60px;">The National Museum Of Computing</h1>
 <p style="font-size:40px;">Please Answer The Following Questions Below:</p>
-
-
-
 <p style="font-size:40px;">Please check the correct box.</p>
 <form action="submit" method = "post" >
 {% csrf_token %}
@@ -31,6 +30,7 @@ body, p, li, input {font-size:18px}
             </li>
         </ul>
     </div>
+
 </form>
 <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
 <script>

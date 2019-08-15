@@ -1,6 +1,6 @@
 $(function () {
   $(".chb").change(function() {
-      $(".chb").prop('checked', false);
+      $(this).siblings().filter('.chb').prop('checked', false);
       $(this).prop('checked', true);
   });
 });

@@ -29,6 +29,11 @@ def submit(request):
         if i in questions:
             answer=response.answer_set.create(answer=request.POST[i.name],question=i)
             answer.save()
+    if page.id==1:
+        if request.POST["Age"] in ["5-10","10-18"]:
+            request.session["page no"]=2
+        else:
+            request.session["page no"]=3
     return render(request,'questions/feedback.html')
 
 @login_required

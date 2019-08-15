@@ -2,10 +2,16 @@ from django.db import models
 
 # Create your models here.
 
+class Page(models.Model):
+    title=models.TextField()
+    submitAddr=models.TextField(default="/submit")
+
 class Question(models.Model):
     title=models.TextField()
     name=models.TextField()
     type=models.TextField(default="radio")
+    order=models.IntegerField(default=1)
+    page=models.ForeignKey(Page,default=1,on_delete=models.SET_DEFAULT)
     def __str__(self):
         return self.title
 

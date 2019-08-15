@@ -1,21 +1,34 @@
 import csv
 from django.http import HttpResponse
 from django.shortcuts import render
-from .models import Question,Choice,Response,Answer
+from .models import Page,Question,Choice,Response,Answer
 from django.contrib.auth.decorators import login_required
 # Create your views here.
 from django.utils import timezone
 def index(request):
-    questions=Question.objects.order_by('-id')
-    return render(request,'questions/Questionare.html',{"questions":questions})
+    newresponse=Response(date_done=timezone.now())
+    newresponse.save()
+    request.session["response no"]=newresponse.id
+    request.session["page no"]=1
+#    questions=Page.objects.get(pk=1).question_set.order_by('-id')
+#    return render(request,'questions/Questionare.html',{"questions":questions,})
+    return form(request)
+
+def form(request):
+    page=Page.objects.get(pk=request.session["page no"])
+    questions=page.question_set.order_by('-id').order_by('-order')
+    return render(request,'questions/Questionare.html',{"questions":questions,})
 
 def submit(request):
-    response=Response(date_done=timezone.now())
-    response.save()
-    questions=Question.objects.order_by('-id')
+#    response=Response(date_done=timezone.now())
+#    response.save()
+    response=Response.objects.get(pk=request.session["response no"])
+    page=Page.objects.get(id=request.session["page no"])
+    questions=Question.objects.filter(page=page)
     for i in questions:
-        answer=response.answer_set.create(answer=request.POST[i.name],question=i)
-        answer.save()
+        if i in questions:
+            answer=response.answer_set.create(answer=request.POST[i.name],question=i)
+            answer.save()
     return render(request,'questions/feedback.html')
 
 @login_required

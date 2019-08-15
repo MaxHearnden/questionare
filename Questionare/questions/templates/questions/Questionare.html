@@ -37,7 +37,7 @@ background-color:MediumSeaGreen;
         {% if question.type == "radio" %}
           <input type="checkbox" class="chb" name={{question.name}} value="{{choice.name}}">{{choice.name}}<br/>
         {% elif question.type == "text" %}
-          <textarea class="form-control" name={{question.name}}" placeholder="{{choice.name}}"></textarea>
+          <textarea class="form-control" name={{question.name}} placeholder="{{choice.name}}"></textarea>
         {% endif %}
       {% endfor %}
     </p>

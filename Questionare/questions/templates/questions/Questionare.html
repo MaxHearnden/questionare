@@ -1,36 +1,53 @@
 <head>
 <style>
-p {color: MediumSeaGreen;}
+.green {color: MediumSeaGreen;}
 body, p, li, input {font-size:18px}
+
+.bg-green {
+background-color:MediumSeaGreen;
+}
 </style>
+<link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="static/style.css">
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+
+
 </head>
-<body style="background-color:lightgray;">
+
+<body>
+<div class="row h-100">
+<div class="col-1 bg-green">
+</div>
+<div class="col-11">
+  <div class="container">
 <h1 style="font-size:60px;">The National Museum Of Computing</h1>
-<p style="font-size:40px;">Please Answer The Following Questions Below:</p>
+<p class="green" style="font-size:40px;">Please Answer The Following Questions Below:</p>
 
-
-
-<p style="font-size:40px;">Please check the correct box.</p>
 <form action="submit" method = "post" >
 {% csrf_token %}
+
 {% for question in questions|dictsort:"id" %}
     <div id="question-{{forloop.counter}}">
-    <p>{{question.title}}</p>
-    <ul>
-    {%for choice in question.choice_set.all %}
-    <li><input type="{{question.type}}" name={{question.name}} value="{{choice.name}}">{{choice.name}}</li>
-    {% endfor %}
-    </ul>
-    <a href="#">next</a>
+    <h3>{{question.title}}</h3>
+    <p>
+      {%for choice in question.choice_set.all %}
+      <input class="{% if question.type == "text" %}form-control{% endif %}" type="{{question.type}}" name={{question.name}} value="{{choice.name}}">{{choice.name}}<br/>
+      {% endfor %}
+    </p>
+    <a class="btn btn-secondary bg-green" href="#">Next</a>
     </div>
 {% endfor %}
-    <div id="question-{{questions|length|add:1}}">
+<div id="question-{{questions|length|add:1}}">
         <ul>
             <li>
                 <input type="submit" value="submit">
             </li>
         </ul>
     </div>
+
 </form>
 <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
 <script>
@@ -45,4 +62,7 @@ $("#question-{{forloop.counter}} a").on("click", function(e){
 })
 {% endfor %}
 </script>
+</div>
+</div>
+</div>
 </body>

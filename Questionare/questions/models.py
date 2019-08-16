@@ -5,6 +5,8 @@ from django.db import models
 class Page(models.Model):
     title=models.TextField()
     submitAddr=models.TextField(default="/submit")
+    def __str__(self):
+        return self.title
 
 class Question(models.Model):
     title=models.TextField()

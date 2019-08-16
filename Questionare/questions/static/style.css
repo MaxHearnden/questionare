@@ -7,7 +7,7 @@ input[type=checkbox] {
 }
 
 #logo {
-  background-image: url("/static/logo.png");
+  background-image: url("/static/logo_upper.png");
   background-size: contain;
   background-repeat: no-repeat;
 }

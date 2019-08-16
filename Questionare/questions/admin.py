@@ -12,7 +12,8 @@ class QuestionAdmin(admin.ModelAdmin):
         (None,               {'fields': ['title']}),
         (None, {'fields': ['name']}),
         (None, {'fields': ['type']}),
-        (None, {'fields': ['page']})
+        (None, {'fields': ['page']}),
+        (None, {'fields': ['order']})
     ]
     inlines = [ChoiceInline]
 

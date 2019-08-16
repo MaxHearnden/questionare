@@ -35,7 +35,7 @@ background-color:MediumSeaGreen;
           <form action="submit" method = "post" >
             {% csrf_token %}
 
-            {% for question in questions|dictsort:"id" %}
+            {% for question in questions %}
             <div id="question-{{forloop.counter}}">
               <h3>{{question.title}}</h3>
               <p>

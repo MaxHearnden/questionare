@@ -26,21 +26,21 @@ def submit(request):
     page=Page.objects.get(id=request.session["page no"])
     questions=Question.objects.filter(page=page)
     for i in questions:
-        if i in questions:
+        if i.name in request.POST:
             answer=response.answer_set.create(answer=request.POST[i.name],question=i)
             answer.save()
     if page.id==1:
         if request.POST["Age"] in ["5-10","10-18"]:
-            request.session["page no"]=2
+                request.session["page no"]=2
         else:
             request.session["page no"]=3
     return render(request,'questions/feedback.html')
 
 @login_required
 def data(request):
-    data=[[]]
+    data=[["date_done"]]
     for i in Response.objects.all():
-        response=['']*len(data[0])
+        response=[i.date_done]+['']*len(data[0])
         for j in i.answer_set.all():
             if j.question.name not in data[0]:
                 data[0].append(j.question.name)

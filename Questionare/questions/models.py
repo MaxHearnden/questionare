@@ -13,7 +13,7 @@ class Question(models.Model):
     name=models.TextField()
     type=models.TextField(default="radio")
     order=models.IntegerField(default=1)
-    page=models.ForeignKey(Page,default=1,on_delete=models.SET_DEFAULT)
+    page=models.ForeignKey(Page,on_delete=models.SET_DEFAULT)
     def __str__(self):
         return self.title
 

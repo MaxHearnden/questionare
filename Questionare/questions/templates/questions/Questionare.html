@@ -34,7 +34,6 @@ background-color:MediumSeaGreen;
 
           <form action="submit" method = "post" >
             {% csrf_token %}
-
             {% for question in questions %}
             <div id="question-{{forloop.counter}}">
               <h3>{{question.title}}</h3>
@@ -44,6 +43,11 @@ background-color:MediumSeaGreen;
                 <input type="checkbox" class="chb" name={{question.name}} value="{{choice.name}}">{{choice.name}}<br/>
                 {% elif question.type == "text" %}
                 <textarea class="form-control" name={{question.name}} placeholder="{{choice.name}}"></textarea>
+                {% elif question.type == "radio,text" %}
+                <input type="checkbox" class="chb{% if forloop.counter == 2 %} stb{% else %} htb{% endif %}" name={{question.name}} value="{{choice.name}}">{{choice.name}}<br/>
+                {% if forloop.counter == 2 %}
+                <textarea class="form-control" name={{question.name}} style="display: none"></textarea>
+                {% endif %}
                 {% endif %}
                 {% endfor %}
               </p>
